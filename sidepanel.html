@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ClawCompanion</title>
+  <style>
+    body { font-family: sans-serif; padding: 10px; display: flex; flex-direction: column; height: 100vh; margin: 0; }
+    #chat-container { flex: 1; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+    #input-container { display: flex; }
+    #user-input { flex: 1; padding: 5px; }
+    button { padding: 5px 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+    .message { margin-bottom: 8px; }
+    .user { color: #007bff; font-weight: bold; }
+    .jarvis { color: #28a745; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h3>🐾 ClawCompanion</h3>
+  <div id="chat-container">
+    <div class="message jarvis">贾维斯: 老板，我在网页侧边为您待命！有什么想聊的？</div>
+  </div>
+  <div id="input-container">
+    <input type="text" id="user-input" placeholder="输入消息...">
+    <button id="send-btn">发送</button>
+  </div>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

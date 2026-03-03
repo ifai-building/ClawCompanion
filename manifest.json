@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "ClawCompanion (爪爪搭子)",
+  "version": "1.0.0",
+  "description": "OpenClaw 浏览器协作插件，您的赛博吃瓜搭档。",
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_title": "打开爪爪搭子"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
