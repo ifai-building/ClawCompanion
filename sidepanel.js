@@ -25,13 +25,24 @@ document.getElementById('send-btn').addEventListener('click', async () => {
   try {
     // 假设 OpenClaw 本地接口 (需配合实际 API 调整)
     // 这里使用模拟回复或尝试调用 127.0.0.1:18791 (如果 API 允许直接 fetch)
-    const response = await fetch('http://127.0.0.1:18791/api/chat', {
+    // 调用 OpenClaw 默认的本地 Gateway 接口 (OpenAI 兼容格式)
+    const response = await fetch('http://127.0.0.1:8790/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: prompt })
-    }).then(res => res.json()).catch(() => ({ reply: "OpenClaw 接口连接失败，请检查 Gateway 是否开启。但我依然在这里！" }));
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer openclaw' // 本地调试默认 token
+      },
+      body: JSON.stringify({ 
+        model: "default", 
+        messages: [{ role: "user", content: prompt }] 
+      })
+    }).then(res => res.json()).catch(err => {
+      console.error("OpenClaw API Error:", err);
+      return { error: true, reply: "报告老板：OpenClaw Gateway 连接失败，请检查 8790 端口是否开启服务。" };
+    });
 
-    appendMessage('贾维斯', response.reply || "我收到消息了，老板！", 'jarvis');
+    const replyText = response.error ? response.reply : (response.choices?.[0]?.message?.content || "（收到，但未解析到有效回复）");
+    appendMessage('贾维斯', replyText, 'jarvis');
   } catch (error) {
     appendMessage('贾维斯', "汇报老板：连接 OpenClaw 出了一点小差错。", 'jarvis');
   }
